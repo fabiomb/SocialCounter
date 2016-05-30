@@ -1,5 +1,7 @@
 <?php
-
+// Social Counter 1.0
+// https://github.com/fabiomb/SocialCounter
+// Copyleft 2016 Fabio Baccaglioni
 
 require("config.php");
 
@@ -12,13 +14,18 @@ if ($youtube <> "")
 {
     $youtube = json_decode($youtube);
     $shareyoutube = $youtube->items[0]->statistics->subscriberCount;
-    echo "Suscriptores: ". $shareyoutube."<br /><br />";
+    $viewCount = $youtube->items[0]->statistics->viewCount;
+    $videoCount  = $youtube->items[0]->statistics->videoCount;
+    echo "subscriberCount: ". $shareyoutube."<br /><br />";
+    echo "viewCount: ". $viewCount."<br /><br />";
+    echo "videoCount: ". $videoCount."<br /><br />";
 }
 
 // Facebook
 $url = "https://api.facebook.com/method/links.getStats?urls=".$fanpage."&format=json";
 echo "URL:".$url."<br /><br />";
 $facebook = get_CURL ($url);
+
 if ($facebook <> "")
 {
     $facebook = json_decode($facebook);
@@ -35,8 +42,14 @@ if ($twitter <> "")
 {
     $twitter = json_decode($twitter);
     $sharetwitter = $twitter[0]->followers_count;
+    $formatted_followers_count = $twitter[0]->formatted_followers_count;
+    $name = $twitter[0]->name;
     echo "Followers: ". $sharetwitter."<br /><br />";
+    echo "Formatted: ". $formatted_followers_count."<br /><br />";
+    echo "Full Name: ". $name."<br /><br />";
 }
+
+
 
 // Instagram
 $url = "https://www.instagram.com/".$instagramuser."/?__a=1";
@@ -48,13 +61,17 @@ if ($instagram <> "")
     $instagram = json_decode($instagram);
 
     $shareinstagram = $instagram->user->followed_by->count;
+    $follows = $instagram->user->follows->count;
+    $profile_pic_url = $instagram->user->profile_pic_url;
+    $full_name = $instagram->user->full_name;
+    $counter = $instagram->user->media->count;
     echo "Followers IG: ". $shareinstagram."<br /><br />";
+    echo "Follows IG: ". $follows."<br /><br />";
+    echo "Pic: ". $profile_pic_url."<br /><br />";
+    echo "Full name: ". $full_name."<br /><br />";
+    echo "Pictures: ". $counter."<br /><br />";
 
 }
-
-
-
-
 
 
 function get_CURL ($url)
