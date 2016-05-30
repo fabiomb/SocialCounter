@@ -1,4 +1,4 @@
-==Social Counter==
+# Social Counter
 
 Social network API access to counters and basic data
 
